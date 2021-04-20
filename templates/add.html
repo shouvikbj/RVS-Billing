@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+<!--  -->
+{% block head %}
+<style>
+  .card {
+    box-shadow: 0px 0px 5px 0px slategray;
+  }
+</style>
+{% endblock head %}
+<!--  -->
+{% block body %}
+<h2 class="text-center">Add Distributor</h2>
+<br />
+<div class="container">
+  <div class="row">
+    <div class="col-md-4 col-sm-0"></div>
+    <div class="col-md-4 col-sm-12">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title text-left">Enter Distributor Name</h5>
+          <br />
+          <div>
+            <form action="/add" method="POST">
+              <div class="form-group text-left">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="distributorName"
+                  aria-describedby="emailHelp"
+                  placeholder="enter distributor name"
+                  name="distributorName"
+                  required
+                  autocomplete="off"
+                />
+              </div>
+              <br />
+              <div class="text-right">
+                <button type="submit" class="btn btn-primary">
+                  Add Distributor
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 col-sm-0"></div>
+  </div>
+</div>
+{% endblock body %}

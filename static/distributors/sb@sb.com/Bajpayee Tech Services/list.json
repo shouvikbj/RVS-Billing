@@ -1,0 +1,20 @@
+[
+  {
+    "id": "J0mfGVc9kk7Jzqcf7faRD",
+    "invoiceNumber": "RVSB-J0mfGVc9kk7Jzqcf7faRD",
+    "productName": "p1, p2, p3",
+    "date": "17-03-2021",
+    "lastUpdated": "18-03-2021",
+    "billAmount": "1000",
+    "actualPayment": "950"
+  },
+  {
+    "id": "BT0y55PhE39MwlY8p3D_g",
+    "invoiceNumber": "BKD-120022",
+    "productName": "p8, p6, p4, p2, p0",
+    "date": "18-04-2021",
+    "lastUpdated": "19-04-2021",
+    "billAmount": "5000",
+    "actualPayment": "4900"
+  }
+]

@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+<!--  -->
+{% block head %}
+<style>
+  .card {
+    box-shadow: 0px 0px 5px 0px slategray;
+    min-width: 18rem;
+  }
+  .viewBtn {
+    border-radius: 50px;
+  }
+</style>
+{% endblock head %}
+<!--  -->
+{% block body %}
+<h5 class="text-center">
+  Search Billings for <br />
+  <span style="font-weight: bolder">{{ distributorName }}</span>
+</h5>
+<br />
+<div class="container">
+  <div class="row">
+    <div class="col-md-4 col-sm-0"></div>
+    <div class="col-md-4 col-sm-12">
+      <div class="card">
+        <div class="card-body">
+          <!-- <h5 class="card-title text-left">Enter Distributor Name</h5> -->
+          <!-- <br /> -->
+          <div>
+            <form action="#" method="POST">
+              <div class="form-group text-left">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="searchText"
+                  aria-describedby="emailHelp"
+                  placeholder="type to search"
+                  name="searchText"
+                  required
+                  autocomplete="off"
+                  oninput="search()"
+                />
+              </div>
+              <!-- <br /> -->
+              <!-- <div class="text-right">
+                <button type="submit" class="btn btn-primary">
+                  Add Distributor
+                </button>
+              </div> -->
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 col-sm-0">
+      <br />
+      <div id="reslist"></div>
+    </div>
+  </div>
+</div>
+<script>
+  const search = () => {
+    // console.log("Trying to search");
+    $("#reslist").empty();
+    $.ajax({
+      method: "post",
+      url: "/distributor/{{distributorId}}/search",
+      data: {
+        text: $("#searchText").val(),
+      },
+      success: function (res) {
+        var data = "";
+        $.each(res, function (index, value) {
+          data += `<div class="col-12">`;
+          data += `<div class="card text-dark bg-light mb-3">`;
+          data += `<div class="card-header text-info">`;
+          data += `<span style="font-weight: bold">Invoice: </span>${value["invoiceNumber"]}`;
+          data += `</div>`;
+          data += `<div class="card-body">`;
+          data += `<h6 class="card-title">`;
+          data += `<span style="font-weight: bolder">Bill Created on: </span>${value["date"]}`;
+          data += `</h6>`;
+          data += `<p class="card-text">`;
+          data += `<span>`;
+          data += `<span style="font-weight: bolder">Product(s): </span>${value["productName"]}</span>`;
+          data += `<br />`;
+          data += `<span>`;
+          data += `<span style="font-weight: bolder">Bill Amount: </span>${value["billAmount"]}</span>`;
+          data += `<br />`;
+          data += `<span>`;
+          data += `<span style="font-weight: bolder">Actual Payment: </span>${value["actualPayment"]}</span>`;
+          data += `<br />`;
+          data += `<span style="color: #a77b06">`;
+          data += `<span style="font-weight: bolder">Last Updated: </span>${value["lastUpdated"]}</span>`;
+          data += `<br />`;
+          data += `</p>`;
+          data += `<a href="/distributor/{{ distributorId }}/editbill/${value["id"]}">`;
+          data += `<button style="float: right" class="btn btn-sm btn-primary viewBtn">`;
+          data += `<i class="material-icons text-light">edit</i>`;
+          data += `</button>`;
+          data += `</a>`;
+          data += `</div>`;
+          data += `</div>`;
+          data += `</div>`;
+          data += ``;
+        });
+        data += `<br /><br /><br /><br /><br />`;
+        $("#reslist").html(data);
+      },
+    });
+  };
+</script>
+{% endblock body %}

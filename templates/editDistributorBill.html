@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+<!--  -->
+{% block head %}
+<style>
+  #goBack {
+    border-radius: 50px;
+  }
+</style>
+{% endblock head %}
+<!--  -->
+{% block body %}
+<div class="container text-left">
+  <a href="/distributor/{{ distributorId }}">
+    <button type="button" class="btn btn-light btn-sm" id="goBack">
+      <i class="material-icons text-primary">arrow_back</i>
+    </button>
+  </a>
+</div>
+<br />
+<h5 class="text-center">
+  Edit Bill of<br />
+  <span style="font-weight: bolder">{{ distributorName }}</span>
+</h5>
+<p class="text-info text-center">Created on : {{ bill["date"] }}</p>
+<p class="text-success text-center">
+  Last updated on : {{ bill["lastUpdated"] }}
+</p>
+<br />
+<div class="container">
+  <div class="row">
+    <div class="col-md-4 col-sm-0"></div>
+    <div class="col-md-4 col-sm-12">
+      <div>
+        <form
+          action="/distributor/{{ distributorId }}/editbill/{{bill['id']}}"
+          method="POST"
+        >
+          <div class="form-group text-left">
+            <label for="invoiceNumber">Invoice Number</label>
+            <input
+              type="text"
+              class="form-control"
+              id="invoiceNumber"
+              aria-describedby="invoiceNumber"
+              placeholder="invoice number"
+              name="invoiceNumber"
+              autocomplete="off"
+              value="{{bill['invoiceNumber']}}"
+            />
+          </div>
+          <div class="form-group text-left">
+            <label for="productName">Edit product name / names</label>
+            <input
+              type="text"
+              class="form-control"
+              id="productName"
+              aria-describedby="productName"
+              placeholder="add product name / names"
+              name="productName"
+              autocomplete="off"
+              value="{{bill['productName']}}"
+            />
+          </div>
+          <div class="form-group text-left">
+            <label for="lastUpdated"
+              >Select Today's Date (<span class="text-danger">required</span
+              >)</label
+            >
+            <input
+              type="date"
+              class="form-control"
+              id="lastUpdated"
+              aria-describedby="lastUpdated"
+              placeholder="select date"
+              name="lastUpdated"
+              required
+              autocomplete="off"
+            />
+          </div>
+          <div class="form-group text-left">
+            <label for="billAmount">Bill Amount</label>
+            <input
+              type="text"
+              class="form-control"
+              id="billAmount"
+              aria-describedby="billAmount"
+              placeholder="bill amount"
+              name="billAmount"
+              autocomplete="off"
+              value="{{bill['billAmount']}}"
+            />
+          </div>
+          <div class="form-group text-left">
+            <label for="actualPayment">Actual Payment</label>
+            <input
+              type="text"
+              class="form-control"
+              id="actualPayment"
+              aria-describedby="actualPayment"
+              placeholder="actual payment"
+              name="actualPayment"
+              autocomplete="off"
+              value="{{bill['actualPayment']}}"
+            />
+          </div>
+          <br />
+          <div class="text-right">
+            <button type="submit" class="btn btn-primary">Update Bill</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="col-md-4 col-sm-0"></div>
+  </div>
+</div>
+<br /><br /><br /><br /><br />
+{% endblock body %}

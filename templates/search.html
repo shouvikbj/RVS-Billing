@@ -1,0 +1,127 @@
+{% extends "base.html" %}
+<!--  -->
+{% block head %}
+<style>
+  .viewBtn {
+    border-radius: 50px;
+  }
+  .card {
+    box-shadow: 0px 0px 10px -2px slategray;
+    border-radius: 50px;
+  }
+</style>
+{% endblock head %}
+<!--  -->
+{% block body %}
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 col-sm-12">
+      <h5 class="text-center">Search Distributor</h5>
+      <div class="form-group">
+        <label for="searchText">Search for Distributor</label>
+        <input
+          type="text"
+          class="form-control"
+          id="searchText"
+          placeholder="Search for Distributor"
+          name="searchText"
+          oninput="searchDistributor()"
+        />
+      </div>
+      <br /><br />
+      <div id="distList"></div>
+      <br /><br />
+    </div>
+    <div class="col-md-6 col-sm-12">
+      <h5 class="text-center">Get Summery</h5>
+      <div>
+        <div class="form-group">
+          <label for="year">Enter Year</label>
+          <input
+            type="text"
+            class="form-control"
+            id="year"
+            name="year"
+            placeholder="Enter year"
+          />
+        </div>
+        <button class="btn btn-primary float-right" onclick="getReport()">
+          Search
+        </button>
+      </div>
+      <br /><br />
+      <div id="report"></div>
+      <br /><br />
+    </div>
+  </div>
+</div>
+<br /><br /><br /><br /><br />
+<script>
+  const searchDistributor = () => {
+    var searchText = $("#searchText").val();
+    $("#distList").empty();
+    $.ajax({
+      method: "post",
+      url: "/search/distributor",
+      data: {
+        text: searchText,
+      },
+      success: function (res) {
+        var data = "";
+        $.each(res, function (index, value) {
+          data += `<div class="card" style="width: 100%; padding: -3px">`;
+          data += `<div class="card-body">`;
+          data += `<div>`;
+          data += `<span style="font-size: 150%">${value["name"]}</span>`;
+          data += `<a href="/distributor/${value["id"]}" class="btn btn-primary btn-sm viewBtn" style="float: right">`;
+          data += `<i class="material-icons text-light">arrow_forward</i>`;
+          data += `</a>`;
+          data += `</div>`;
+          data += `</div>`;
+          data += `</div>`;
+          data += `<br />`;
+        });
+        $("#distList").html(data);
+      },
+    });
+  };
+
+  const getReport = () => {
+    var year = $("#year").val();
+    $("#reslist").empty();
+    $.ajax({
+      method: "post",
+      url: "/search/report",
+      data: {
+        text: year,
+      },
+      success: function (res) {
+        var data = "";
+        data += `<table class="table table-striped">`;
+        data += `<thead>`;
+        data += `<tr>`;
+        data += `<th scope="col">Month</th>`;
+        data += `<th scope="col">Bill Amount</th>`;
+        data += `<th scope="col">Actual Payment</th>`;
+        data += `<th scope="col">Balance Difference</th>`;
+        data += `</tr>`;
+        data += `</thead>`;
+        data += `<tbody>`;
+        $.each(res, function (index, value) {
+          data += `<tr>`;
+          data += `<th scope="row">${value["name"]}</th>`;
+          data += `<td>${value["billAmount"]}</td>`;
+          data += `<td>${value["actualPayment"]}</td>`;
+          data += `<td>${
+            parseInt(value["billAmount"]) - parseInt(value["actualPayment"])
+          }</td>`;
+          data += `</tr>`;
+        });
+        data += `</tbody>`;
+        data += `</table>`;
+        $("#report").html(data);
+      },
+    });
+  };
+</script>
+{% endblock body %}

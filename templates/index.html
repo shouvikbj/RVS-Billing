@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+<!--  -->
+{% block head %}
+<style>
+  .viewBtn {
+    border-radius: 50px;
+  }
+  .card {
+    min-width: 18rem;
+  }
+</style>
+{% endblock head %}
+<!--  -->
+{% block body %}
+<!-- <br /> -->
+<!-- <h2 class="text-center">Home Page</h2> -->
+<!-- <br /> -->
+<div class="container">
+  <div>
+    <a href="/logout">
+      <button style="float: right" class="btn btn-sm btn-danger viewBtn">
+        <i class="material-icons text-light">logout</i>
+      </button>
+    </a>
+  </div>
+  <br /><br /><br />
+  <div class="row">
+    {% for data in distributorList %}
+    <div class="col">
+      <div class="card text-dark bg-light mb-3">
+        <div class="card-header text-info">
+          <span style="font-weight: bold">ID: </span>{{ data["id"] }}
+        </div>
+        <div class="card-body">
+          <h4 class="card-title">{{ data["name"] }}</h4>
+          <p class="card-text text-info">
+            Click the button below to view details about this distributor.
+          </p>
+          <a href="/distributor/{{data['id']}}/showReport">
+            <button style="float: left" class="btn btn-sm btn-warning viewBtn">
+              <i class="material-icons text-light">format_align_left</i>
+            </button>
+          </a>
+          <a href="/distributor/{{data['id']}}">
+            <button style="float: right" class="btn btn-sm btn-primary viewBtn">
+              <i class="material-icons text-light">arrow_forward</i>
+            </button>
+          </a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+<br /><br /><br /><br /><br />
+{% endblock body %}

@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+<!--  -->
+{% block head %}{% endblock head %}
+<!--  -->
+{% block body %}
+<h5 class="text-center">
+  Add New Billing for <br />
+  <span style="font-weight: bolder">{{ distributorName }}</span>
+</h5>
+<br />
+<div class="container">
+  <div class="row">
+    <div class="col-md-4 col-sm-0"></div>
+    <div class="col-md-4 col-sm-12">
+      <div>
+        <form action="/distributor/{{ distributorId }}/add" method="POST">
+          <div class="form-group text-left">
+            <label for="invoiceNumber">Invoice Number (optional)</label>
+            <input
+              type="text"
+              class="form-control"
+              id="invoiceNumber"
+              aria-describedby="invoiceNumber"
+              placeholder="invoice number"
+              name="invoiceNumber"
+              autocomplete="off"
+            />
+          </div>
+          <div class="form-group text-left">
+            <label for="productName">Add product name / names (optional)</label>
+            <input
+              type="text"
+              class="form-control"
+              id="productName"
+              aria-describedby="productName"
+              placeholder="add product name / names"
+              name="productName"
+              autocomplete="off"
+            />
+          </div>
+          <div class="form-group text-left">
+            <label for="date">Date</label>
+            <input
+              type="date"
+              class="form-control"
+              id="date"
+              aria-describedby="date"
+              placeholder="select date"
+              name="date"
+              required
+              autocomplete="off"
+            />
+          </div>
+          <div class="form-group text-left">
+            <label for="billAmount">Bill Amount</label>
+            <input
+              type="text"
+              class="form-control"
+              id="billAmount"
+              aria-describedby="billAmount"
+              placeholder="bill amount"
+              name="billAmount"
+              autocomplete="off"
+            />
+          </div>
+          <div class="form-group text-left">
+            <label for="actualPayment">Actual Payment</label>
+            <input
+              type="text"
+              class="form-control"
+              id="actualPayment"
+              aria-describedby="actualPayment"
+              placeholder="actual payment"
+              name="actualPayment"
+              autocomplete="off"
+            />
+          </div>
+          <br />
+          <div class="text-right">
+            <button type="submit" class="btn btn-primary">Add Bill</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="col-md-4 col-sm-0"></div>
+  </div>
+</div>
+<br /><br /><br /><br /><br />
+{% endblock body %}

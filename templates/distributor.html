@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+<!--  -->
+{% block head %}
+<style>
+  .viewBtn {
+    border-radius: 50px;
+  }
+  .card {
+    min-width: 18rem;
+  }
+</style>
+{% endblock head %}
+<!--  -->
+{% block body %}
+<h2 class="text-center">{{ distributorName }}</h2>
+<br />
+<div class="container">
+  <!-- Search Button -->
+  <a href="/distributor/{{ distributorId }}/search">
+    <button
+      type="button"
+      class="btn btn-sm btn-primary"
+      style="float: left; border-radius: 50px"
+      data-toggle="modal"
+      data-target="#exampleModal"
+    >
+      <i class="material-icons text-light">search</i>
+    </button>
+  </a>
+
+  <!-- Add Data Button -->
+  <a href="/distributor/{{ distributorId }}/add">
+    <button
+      class="btn btn-sm btn-primary"
+      style="float: right; border-radius: 50px"
+    >
+      <i class="material-icons text-light">add</i>
+    </button>
+  </a>
+</div>
+<br /><br />
+<br />
+<div class="container">
+  {% if (dataList | length) %}
+  <!--  -->
+  <div class="row">
+    {% for data in dataList %}
+    <div class="col">
+      <div class="card text-dark bg-light mb-3">
+        <div class="card-header text-info">
+          <span style="font-weight: bold">Invoice: </span>{{
+          data["invoiceNumber"] }}
+        </div>
+        <div class="card-body">
+          <h6 class="card-title">
+            <span style="font-weight: bolder">Bill Created on: </span>{{
+            data["date"] }}
+          </h6>
+          <p class="card-text">
+            <span
+              ><span style="font-weight: bolder">Product(s): </span>{{
+              data["productName"] }}</span
+            ><br />
+            <span
+              ><span style="font-weight: bolder">Bill Amount: </span>{{
+              data["billAmount"] }}</span
+            ><br />
+            <span
+              ><span style="font-weight: bolder">Actual Payment: </span>{{
+              data["actualPayment"] }}</span
+            ><br />
+            <span style="color: #a77b06"
+              ><span style="font-weight: bolder">Last Updated: </span>{{
+              data["lastUpdated"] }}</span
+            ><br />
+          </p>
+          <a href="/distributor/{{ distributorId }}/editbill/{{data['id']}}">
+            <button style="float: right" class="btn btn-sm btn-primary viewBtn">
+              <i class="material-icons text-light">edit</i>
+            </button>
+          </a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}
+  <br />
+  <p class="text-center text-info">Nothing here yet!</p>
+  {% endif %}
+</div>
+<br /><br /><br /><br /><br />
+{% endblock body %}
